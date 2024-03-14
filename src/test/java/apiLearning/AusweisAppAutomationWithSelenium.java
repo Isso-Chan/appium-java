@@ -6,6 +6,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class AusweisAppAutomationWithSelenium {
@@ -30,9 +31,9 @@ public class AusweisAppAutomationWithSelenium {
             capabilities.setCapability("app", "C:\\Program Files\\AusweisApp\\AusweisApp.exe");
             capabilities.setCapability("platformName", "Windows");
             capabilities.setCapability("deviceName", "WindowsPC");
-            capabilities.setCapability("udid", "D127C747-BEDB-48F6-AA08-5576714C4BB8");
+            capabilities.setCapability("appId", "D127C747-BEDB-48F6-AA08-5576714C4BB8");
             WebDriver ausweisApp = new WindowsDriver(new URL("http://127.0.0.1:4723"), capabilities); //sessionID: "D127C747-BEDB-48F6-AA08-5576714C4BB8"
-            ausweisApp.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
+            ausweisApp.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
         } catch (Exception e) {
             e.printStackTrace();
         }

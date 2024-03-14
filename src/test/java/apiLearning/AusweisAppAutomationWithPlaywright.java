@@ -3,6 +3,7 @@ package apiLearning;
 import com.microsoft.playwright.*;
 
 import java.util.Collections;
+import java.util.List;
 
 public class AusweisAppAutomationWithPlaywright {
     public static void main(String[] args) {
@@ -29,12 +30,23 @@ public class AusweisAppAutomationWithPlaywright {
             page.evaluate("window.location.href = 'calculator://'");
             //                capabilities.setCapability("appium:app", "C:\\Program Files\\AusweisApp\\AusweisApp.exe");
 
+            List<Page> pages = context.pages();
+            Page page1 = pages.get(1);
+//            page.waitForPopup(new Page.WaitForPopupOptions().setPredicate(p-> p.context().pages().size()==2),()-> page.getByText("Rechner öffnen?").click());
+            // Pause briefly to ensure the calculator window is fully loaded
+//            page.waitForTimeout(3000);
 
-            // Wait for the Calculator to load
-            page.waitForLoadState();
+            // Switch to the calculator window
+//            Page calculatorPage = context.pages().get(context.pages().size() - 1);
+
+            // Perform interactions with the calculator
+            // For example, let's click on the number 1 button
+//            calculatorPage.click("name=1"); // Adjust selector according to your calculator app
+
+//            calculatorPage.waitForLoadState();
 
             // Click on calculator buttons (example: 1 + 2 =)
-            page.click("#num1Button");
+            page1.click("#num1Button");
             page.click("#plusButton");
             page.click("#num2Button");
             page.click("#equalButton");
