@@ -26,9 +26,9 @@ public class AppiumDriverEx {
             desiredCapabilities.setCapability(MobileCapabilityTypeEx.NEW_COMMAND_TIMEOUT,6);
 
             // Set up Appium server URL to connect to (Appium Server which has already started manually before)
-            URL appiumServer = new URL("http://localhost:4723/wd/hub");
+            URL appiumServer = new URL("http://localhost:4723");
             appiumDriver = new AppiumDriver(appiumServer, desiredCapabilities);
-            appiumDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            appiumDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 
         } catch (Exception e) {
             e.printStackTrace();
