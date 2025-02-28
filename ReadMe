@@ -18,11 +18,11 @@
 
 3- In order to find locators of a mobile-application;
       * click on Appium Server GUI ans start
-          + set port:4725, Remote Path: /wd/hub/ then start server (Port should NOT be 4723, since it was allocated for testRun in our code!)
+            + set port:4725, Remote Path: /wd/hub/ then start server (Port should NOT be 4723, since it was allocated for testRun in our code!)
       * click on Appium Inspector, (remote port: 4725, remotePath:/wd/hub)
-          + select your pre-defined mobile phone under Saved Capability Sets (if not defined yet, prepare it by carrying desiredCapabilities from AppiumDriver)
-          + click start Session
-          + wait until screen of your mobile phone will be synchronized and appear in Appium window (Appium window is used just to see the locators of buttons)
+            + select your pre-defined mobile phone under Saved Capability Sets (if not defined yet, prepare it by carrying desiredCapabilities from AppiumDriver)
+            + click start Session
+            + wait until screen of your mobile phone will be synchronized and appear in Appium window (Appium window is used just to see the locators of buttons)
       * select YOUR APPLICATION on your mobile phone and click on it (
 
       * In order to define your DEVICE and to specify desiredCapabilities of Appium-driver;
@@ -32,7 +32,7 @@
                     - "List of devices attached" will be displayed, and your mobile phone or emulator UDIDs should be listed (like FFY5T18918000295)
                   + copy your phone UDID
                   + type on cmd window>
-                      adb -s <UDID> shell
+                      adb -s UDID shell
                   + sign before cursor will have changed from > to $ in cmd window. Now enter following code to get APP_PACKAGE and APP_ACTIVITY values of
                     YOUR APPLICATION that you activated above
                       dumpsys window windows | grep -E 'mCurrentFocus'
