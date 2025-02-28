@@ -1,44 +1,60 @@
 
 - For initial installations, watch this video
    -> https://www.youtube.com/watch?v=TU2ajQ8jlUo&list=PLBNb67lT6eELiDgH97xpdJeKM624Zm7li&index=8
+   install -> Vysor (to catch attached/ready device)
+              Appium Server GUI
+              Appium Inspector
+
+1- If YOU WANT TO WORK WITH YOUR OWN MOBILE-PHONE;
+    - first connect your mobile phone to PC
+    - open Vysor application, find your phone and click on it (it will appear on your laptop-screen)
+
+2- IF YOU WANT TO WORK WITH VIRTUELL DEVICE (EMULATOR);
+    - Download -> https://www.genymotion.com/download/ (with virtualbox)
+    - create an account (personell-free)
+    - add a virtual device (Google Pixel, Samsung Galaxy S4 etc)
+    - start your virtuell device
+    - download -> APKMirror (like Google store) and download your required App (to be automated) by using APKMirror
+
+3- In order to find locators of a mobile-application;
+      * click on Appium Server GUI ans start
+          + set port:4725, Remote Path: /wd/hub/ then start server (Port should NOT be 4723, since it was allocated for testRun in our code!)
+      * click on Appium Inspector, (remote port: 4725, remotePath:/wd/hub)
+          + select your pre-defined mobile phone under Saved Capability Sets (if not defined yet, prepare it by carrying desiredCapabilities from AppiumDriver)
+          + click start Session
+          + wait until screen of your mobile phone will be synchronized and appear in Appium window (Appium window is used just to see the locators of buttons)
+      * select YOUR APPLICATION on your mobile phone and click on it (
+
+      * In order to define your DEVICE and to specify desiredCapabilities of Appium-driver;
+            # If it is your OWN MOBILE Phone;
+                  + open cmd window and type ->
+                      adb devices
+                    - "List of devices attached" will be displayed, and your mobile phone or emulator UDIDs should be listed (like FFY5T18918000295)
+                  + copy your phone UDID
+                  + type on cmd window>
+                      adb -s <UDID> shell
+                  + sign before cursor will have changed from > to $ in cmd window. Now enter following code to get APP_PACKAGE and APP_ACTIVITY values of
+                    YOUR APPLICATION that you activated above
+                      dumpsys window windows | grep -E 'mCurrentFocus'
+                  + similar result to the following will be displayed:
+                     mCurrentFocus=Window{8e5230c u0 com.android.contacts/com.android.contacts.activities.DialtactsActivity}
+                  + take initial part BEFORE "/" as APP_PACKAGE value=com.android.contacts
+                  + take second part AFTER "/" as APP_ACTIVITY value=com.android.contacts.activities.DialtactsActivity
+                  + now define UDID, APP_PACKAGE and APP_ACTIVITY in driver class
+
+            # If it is EMULATOR;
+                  + UDID in desiredCapabilities(to use in driver) is name of your emulator provider, which is -> Genymotion
+                  + To get UDID of your virtuel device (to use in Appium Inspector);
+                       - open cmd window and type -> adb devices
+                       - List of devices attached will be displayed e.g -> 192.168.56.103:5555 device
+                       - use initial part before device
+                           <appium:udid>     <text>     <192.168.56.103:5555>
 
 
-- first connect your mobile phone to PC
-- open Vysor application, find your phone and click on it (it will be appear on your laptop-screen
-
-
-- in order to automate a mobile-application;
-  * click on Appium Server GUI
-      + set port:4725, Remote Path: /wd/hub/ then start server (Port should not be 4723, since it was allocated for testRun in driver!)
-  * click on Appium Inspector,
-      + select your pre-defined mobile phone under Saved Capability Sets
-      + click start Session
-      + wait until screen of your mobile phone will be synchronized and appear in Appium window (Appium window is used just to see the locators of buttons)
-  * select YOUR APPLICATION on your mobile phone and click on it
-  * define your mobile phone and specify desiredCapabilities in driver class;
-      + open cmd window and type ->
-          adb devices
-        - "List of devices attached" will be displayed, and your mobile phone or emulator UDIDs should be listed (like FFY5T18918000295)
-      + copy your phone UDID
-      + type on cmd window>
-          adb -s <UDID> shell
-      + sign before cursor will have changed from > to $ in cmd window. Now enter following code to get APP_PACKAGE and APP_ACTIVITY values of
-        YOUR APPLICATION that you activated above
-          dumpsys window windows | grep -E 'mCurrentFocus'
-      + similar result to the following will be displayed:
-         mCurrentFocus=Window{8e5230c u0 com.android.contacts/com.android.contacts.activities.DialtactsActivity}
-      + take initial part BEFORE "/" as APP_PACKAGE value=com.android.contacts
-      + take second part AFTER "/" as APP_ACTIVITY value=com.android.contacts.activities.DialtactsActivity
-      + now define UDID, APP_PACKAGE and APP_ACTIVITY in driver class
-
-
-- if you want to locate elements,
-  * navigate screen by clicking on your MOBILE-PHONE screen, which is started with Vysor app (since NOT possible in Appium window)
+4- if you want to locate elements,
+      * navigate screen by clicking on your MOBILE-PHONE/EMULATOR screen, (since NOT possible in Appium window)
             + if the displayed-screen on Appium window is different than your real phone display, click Refresh Source & ScreenShot button on Appium window
-  *  click on it
-  *  select either xpath or accessibilityId (content-desc)
+      *  click on it
+      *  select either xpath or accessibilityId (content-desc)
 
-
-- To run testcase/code,
-   * click on Appium Server GUI
-      + set port:4723 and start server (since Port is defined in driverClass as 4723!)
+5- BEFORE RUNNING CODE, start 'Appium' in any cmd command (if it does NOT work, appium-path should be defined under system variables)
